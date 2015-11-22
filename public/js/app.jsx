@@ -1,15 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Slide from "./slide.jsx";
 import BaseComponent from "./base-component.jsx";
-import slides from "./slides.jsx";
+import ExpenseTracker from "./expense-tracker/expense-tracker.jsx";
+import injectTapEventPlugin from "react-tap-event-plugin";
  
 class App extends BaseComponent {
 
 constructor(){
   super();
   this.state = {
-        slides: slides,
         currentIndex: 0
       };
         this._bind('next', 'previous');
@@ -30,14 +29,12 @@ constructor(){
   render() {
     return (
       <div>
-        { this.state.currentIndex !== 0 ? <a onClick={this.previous}>Previous</a> : '' } 
-        { this.state.currentIndex > 0 && this.state.currentIndex <  this.state.slides.length-1  ? ' | ' : '' } 
-        { this.state.currentIndex !== this.state.slides.length-1 ?  <a onClick={this.next}>Next</a> : ''}
-        <Slide slide={this.getCurrentSlide()}></Slide>
+        <ExpenseTracker/>
       </div>
       
     );
   }
 }
  
+injectTapEventPlugin();
 ReactDOM.render(<App/>, document.getElementById("content"));
