@@ -7,6 +7,7 @@ import DatePicker from "material-ui/lib/date-picker/date-picker"
 import RaisedButton from "material-ui/lib/raised-button"
 
 import BaseComponent from "../base-component.jsx"
+import transactionsService from "./transactions-service.jsx"
 
 class TransactionInput extends BaseComponent {
 	
@@ -28,11 +29,11 @@ class TransactionInput extends BaseComponent {
 	
 	_onAmountChange(e){
 		var newAmount = e.target.value;
-		if(typeof(eval(newAmount)) !== "number"){
+		if(isNaN(newAmount)){
 			this.setState({amountError: "Amount must be a number"});
+			return;
 		}
 		this.setState({amount: eval(newAmount), amountError: ""});
-		console.log(this.state.amountError);
 	}
 	
 	_onDateChange(e, date){
@@ -41,7 +42,7 @@ class TransactionInput extends BaseComponent {
 	
 	_onCategoryChange(e, index){
 		this.setState({
-			category: this.props.expenseCategories[index]
+			category: this.props.expenseCategories[index].name
 		});
 	}
 	
@@ -66,6 +67,7 @@ class TransactionInput extends BaseComponent {
 		return (
 		<div>
 			<TextField hintText="Enter a title for your expense" floatingLabelText="Title" onChange={this._onTitleChange}/><br/>
+			
 			<SelectField onChange={this._onCategoryChange}
 				floatingLabelText="Expense Type"
 				hintText="Select type of expense"
@@ -73,18 +75,26 @@ class TransactionInput extends BaseComponent {
 				valueMember="id"
 				displayMember="name"
 				menuItems={this.props.expenseCategories}/><br/>
-			<br/>
+				
 			<DatePicker onChange={this._onDateChange}
 				floatingLabelText="Date of Expense"
 				hintText="Select the date of expense"
   				value={this.state.date}/><br/>
+				  
 			<TextField hintText="Enter expense amunt" 
 				floatingLabelText="Amount" 
 				errorText={this.state.amountError}
 				onChange={this._onAmountChange}/><br/>
+			<br/>
+			
 			<RaisedButton label="Add Expense" 
 				disabled={!(this.canAddExpense())}
 				primary={true} onTouchTap={this.addExpense}/>
+				
+			<span className="cancel-button">
+				<RaisedButton label="Cancel" secondary={true}  onTouchTap={this.props.onCancel}/>	
+			</span>
+			
 		</div>
 		);	
 	}

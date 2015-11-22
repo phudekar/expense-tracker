@@ -6,7 +6,7 @@ import Tabs from "material-ui/lib/tabs/tabs"
 import Tab from "material-ui/lib/tabs/tab"
 
 import BaseComponent from "../base-component.jsx"
-import TransactionInput from "./transaction-input.jsx"
+import Transactions from "./transactions.jsx"
 
 class ExpenseTracker extends BaseComponent {
 	
@@ -16,7 +16,7 @@ class ExpenseTracker extends BaseComponent {
 			expenseCategories : [
 				{id:1, name:"Food"},
 				{id:2, name:"Apperals"}, 
-				{id:3, name:"Leisure"},
+				{id:3, name:"Healthcare"},
 				{id:4, name:"Entertainment"},
 				{id:5, name:"Education"},
 				{id:6, name:"Electronics"}],
@@ -41,13 +41,10 @@ class ExpenseTracker extends BaseComponent {
 		return (
 		<Paper>
 			<Tabs className="tabs">
-				<Tab label="Home" value="home" >
+				<Tab label="Transactions" value="home" >
 					<div className="tab-content">
-						<TransactionInput expenseCategories={this.state.expenseCategories} onAddExpense={this.onAddExpense}/>
+						<Transactions expenseCategories={this.state.expenseCategories} onAddExpense={this.onAddExpense}/>
 					</div>
-				</Tab>
-				<Tab label="Transactions" value="transactions" >
-					<div className="tab-content"> </div>
 				</Tab>
 				<Tab label="Reports" value="reports">
 					<div className="tab-content"> </div>
