@@ -3,26 +3,24 @@ import React from "react"
 import Dialog from 'material-ui/lib/dialog'
 import FloatingActionButton from "material-ui/lib/floating-action-button"
 import FontIcon from 'material-ui/lib/font-icon'
-import List from 'material-ui/lib/lists/list';
-import ListDivider from 'material-ui/lib/lists/list-divider';
-import ListItem from 'material-ui/lib/lists/list-item';
 
 import BaseComponent from "../base-component.jsx"
 import TransactionInput from "./transaction-input.jsx"
-import transactionsService from "./transactions-service.jsx"
+import transactionService from "./transaction-service.jsx"
+import TransactionList from "./transaction-list.jsx"
 
 class Transactions extends BaseComponent {
 
 	constructor(){
 		super();
-		this.transactionsService = transactionsService;
+		this.transactionService = transactionService;
 		this.state = {
 			showDialog: false
 		};
-		this._bind('_handleDialogCancel','_handleRequestClose','_addExpense','onAddExpense')
+		this._bind('_handleDialogCancel','_handleRequestClose','_addTransaction','onAddTransaction')
 	}
 	
-	_addExpense(){
+	_addTransaction(){
 		this.setState({showDialog: true});
 	}
 	
@@ -34,45 +32,30 @@ class Transactions extends BaseComponent {
 		this.setState({showDialog: false});
 	}
 	
-	onAddExpense(expense){
-		this.transactionsService.addTransaction(expense);
+	onAddTransaction(transaction){
+		this.transactionService.addTransaction(transaction);
 		this.setState({showDialog: false});
 	}
 	
 	render() {
-		
+	
 		return (
 			<div className="transactions">
-				<List subheader="Today">
-				{ this.transactionsService.transactions.map((transaction, index)=>{
-					return (
-					<div key={index}>
-						<ListItem
-						primaryText={transaction.title}
-						secondaryText={
-						<p>
-							<span style={{color: "darkblue"}}>{transaction.category}</span><br/>
-							<span>{transaction.amount}</span>
-						</p>
-						}
-						secondaryTextLines={2} />
-						<ListDivider/>
-						</div>
-						)
-				})}
-				</List>			
-				<FloatingActionButton 
-					onTouchTap={this._addExpense} >
+			
+				<TransactionList transactions={this.transactionService.transactions}/>
+				
+				<FloatingActionButton style={{position: "absolute", right: "20px", bottom: "20px" }}
+					onTouchTap={this._addTransaction} >
 					<span className="add-button">+</span>
 				</FloatingActionButton>
 
 				<Dialog
-					title="Add Expense"
+					title="Add Transaction"
 					open={this.state.showDialog}
 					onRequestClose={this._handleRequestClose}>
 					
-					<TransactionInput expenseCategories={this.props.expenseCategories} 
-						onAddExpense={this.onAddExpense} 
+					<TransactionInput 
+						onAddExpense={this.onAddTransaction} 
 						onCancel={this._handleDialogCancel}/>
 				</Dialog>
 			</div>

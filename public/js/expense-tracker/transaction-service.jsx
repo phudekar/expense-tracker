@@ -1,4 +1,4 @@
-class TransactionsService {
+class TransactionService {
 
 	constructor(){
 		this._transactions = [
@@ -17,4 +17,4 @@ class TransactionsService {
 
 }
 
-module.exports = new TransactionsService();
+module.exports = new TransactionService();

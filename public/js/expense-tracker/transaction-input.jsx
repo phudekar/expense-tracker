@@ -7,12 +7,13 @@ import DatePicker from "material-ui/lib/date-picker/date-picker"
 import RaisedButton from "material-ui/lib/raised-button"
 
 import BaseComponent from "../base-component.jsx"
-import transactionsService from "./transactions-service.jsx"
+import expenseCategories from "./expense-categories.jsx"
 
 class TransactionInput extends BaseComponent {
 	
 	constructor(){
 		super();
+		this.expenseCategories = expenseCategories;
 		this.state={
 			title: "",
 			category: "",
@@ -42,14 +43,14 @@ class TransactionInput extends BaseComponent {
 	
 	_onCategoryChange(e, index){
 		this.setState({
-			category: this.props.expenseCategories[index].name
+			category: this.expenseCategories[index]
 		});
 	}
 	
 	addExpense(){
 		let expense = {
 			title: this.state.title,
-			category: this.state.category,
+			category: this.state.category.name,
 			amount: this.state.amount,
 			date: this.state.date
 		}
@@ -74,7 +75,7 @@ class TransactionInput extends BaseComponent {
 				value={this.state.category.id}
 				valueMember="id"
 				displayMember="name"
-				menuItems={this.props.expenseCategories}/><br/>
+				menuItems={this.expenseCategories}/><br/>
 				
 			<DatePicker onChange={this._onDateChange}
 				floatingLabelText="Date of Expense"
@@ -87,7 +88,7 @@ class TransactionInput extends BaseComponent {
 				onChange={this._onAmountChange}/><br/>
 			<br/>
 			
-			<RaisedButton label="Add Expense" 
+			<RaisedButton label="Add" 
 				disabled={!(this.canAddExpense())}
 				primary={true} onTouchTap={this.addExpense}/>
 				

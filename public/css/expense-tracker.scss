@@ -19,3 +19,12 @@
 	}
 	
 }
+
+.transaction-list{
+	height: 550px;
+	
+	.transaction-amount{
+		float: right;
+		text-align: right;
+	}
+}
