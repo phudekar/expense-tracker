@@ -21,7 +21,7 @@ class TransactionInput extends BaseComponent {
 			amount: 0,
 			amountError:""
 		}
-		this._bind("_onTitleChange", "_onAmountChange", "_onCategoryChange","_onDateChange","addExpense","canAddExpense");
+		this._bind("_onTitleChange", "_onAmountChange", "_onCategoryChange","_onDateChange","addTransaction","canAddTransaction");
 	}
 	
 	_onTitleChange(e){
@@ -47,17 +47,17 @@ class TransactionInput extends BaseComponent {
 		});
 	}
 	
-	addExpense(){
+	addTransaction(){
 		let expense = {
 			title: this.state.title,
 			category: this.state.category.name,
 			amount: this.state.amount,
 			date: this.state.date
 		}
-		this.props.onAddExpense(expense);
+		this.props.onAddTransaction(expense);
 	}
 	
-	canAddExpense(){
+	canAddTransaction(){
 		return this.state.title.length > 0
 			&& this.state.category
 			&& this.state.amount > 0
@@ -89,8 +89,8 @@ class TransactionInput extends BaseComponent {
 			<br/>
 			
 			<RaisedButton label="Add" 
-				disabled={!(this.canAddExpense())}
-				primary={true} onTouchTap={this.addExpense}/>
+				disabled={!(this.canAddTransaction())}
+				primary={true} onTouchTap={this.addTransaction}/>
 				
 			<span className="cancel-button">
 				<RaisedButton label="Cancel" secondary={true}  onTouchTap={this.props.onCancel}/>	
