@@ -13,7 +13,7 @@ class TransactionList extends BaseComponent {
 	constructor(){
 		super();
 	}
-	
+
 	render(){
 		return (
 			<List subheader="Today" className="transaction-list">

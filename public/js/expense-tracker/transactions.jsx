@@ -8,7 +8,6 @@ class Transactions extends BaseComponent {
 
 	constructor(){
 		super();
-		this.transactionService = transactionService;
 	}
 	
 	render() {

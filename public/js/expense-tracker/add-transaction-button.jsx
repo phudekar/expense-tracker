@@ -33,6 +33,8 @@ class AddTransactionButton extends BaseComponent{
 	onAddTransaction(transaction){
 		this.transactionService.addTransaction(transaction);
 		this.setState({showDialog: false});
+		if(this.props.onTransactionsUpdated)
+			this.props.onTransactionsUpdated();
 	}
 	
 	render(){

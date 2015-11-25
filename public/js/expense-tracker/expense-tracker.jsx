@@ -6,7 +6,8 @@ import Tabs from "material-ui/lib/tabs/tabs"
 import Tab from "material-ui/lib/tabs/tab"
 
 import BaseComponent from "../base-component.jsx"
-import Transactions from "./transactions.jsx"
+import TransactionList from "./transaction-list.jsx"
+import transactionService from "./transaction-service.jsx"
 import TransactionReport from "./transaction-report.jsx"
 import AddTransactionButton from "./add-transaction-button.jsx"
 
@@ -14,6 +15,15 @@ class ExpenseTracker extends BaseComponent {
 	
 	constructor(){
 		super();
+		this.transactionService = transactionService;
+		this.state = {
+			transactions: this.transactionService.transactions
+		}
+		this._bind('onTransactionsUpdated');
+	}
+	
+	onTransactionsUpdated(){
+		this.setState({transactions: this.transactionService.transactions});
 	}
 	
 	render(){
@@ -22,8 +32,8 @@ class ExpenseTracker extends BaseComponent {
 			<Tabs className="tabs">
 				<Tab label="Transactions" value="home" >
 					<div className="tab-content">
-						<Transactions/>
-						<AddTransactionButton/>
+						<TransactionList transactions={this.state.transactions}/>
+						<AddTransactionButton onTransactionsUpdated={this.onTransactionsUpdated}/>
 					</div>
 				</Tab>
 				<Tab label="Reports" value="reports">

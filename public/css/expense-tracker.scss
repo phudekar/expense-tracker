@@ -2,10 +2,11 @@
 
 .tabs{
 	
-	min-height: 600px;
+	min-height: $height;
 	
 	.tab-content{
 		padding: 20px;
+		overflow-y: scroll;
 	}
 	
 	.cancel-button{
@@ -19,8 +20,7 @@
 }
 
 .transaction-list{
-	height: 550px;
-	
+	height: $height - 12vh;
 	.transaction-amount{
 		float: right;
 		text-align: right;

@@ -4,6 +4,7 @@ import _ from "lodash"
 
 import BaseComponent from "../base-component.jsx"
 import transactionService from "./transaction-service.jsx"
+import AddTransactionButton from "./add-transaction-button.jsx"
 
 class TransactionReport extends BaseComponent {
 	
@@ -12,16 +13,26 @@ class TransactionReport extends BaseComponent {
 		this.transactionService = transactionService;
 		this.state = {
 			timespan: "day",
-			width: 450,
-			height: 300,
-			radius: 100,
-			innerRadius: 45,
 			tweenDuration: 250
 		}
-		this._bind('_pieTween','_removePieTween','_arc');
+		this._bind('_pieTween','_removePieTween','_arc','_setDimensions','getLegend');
 		this.pieData = [];    
 		this.oldPieData = [];
 		this.color = d3.scale.category20();
+	}
+	
+	componentWillMount(){
+		var width  = this.props.width ? this.props.width : 500;
+		this._setDimensions(width);
+	}
+	
+	componentDidMount(){
+		this._addResizeHandler();
+		this._draw();
+	}
+	
+	componentDidUpdate(){
+		this._draw();
 	}
 	
 	getTranscationSummary(){
@@ -48,23 +59,25 @@ class TransactionReport extends BaseComponent {
 		});
 	}
 	
-	componentDidMount(){
-		this._addResizeHandler();
-		this._draw();
-	}
-	
-	componentDidUpdate(){
-		this._draw();
-	}
-	
 	getColor(d, i){
 		return this.color(i);
 	}
 	
+	_setDimensions(width){
+		this.setState({
+			width :  width,
+			height : width * 0.8,
+			radius : width * 0.3,
+			innerRadius : width *.15
+		});
+	}
+	
 	_draw(){
+		var transactionSummary = this.getTranscationSummary();
 		this._cleanUpChart();
 		this._initializePie();	
-		this._drawPieChart();
+		this._drawPieChart(transactionSummary);
+		this._drawLegend(transactionSummary);
 	}
 	
 	_initializePie(){
@@ -113,8 +126,11 @@ class TransactionReport extends BaseComponent {
 		chartContainer.select("svg").remove();
 	}
 	
-	_drawPieChart(){
-		var transactionSummary =  this.getTranscationSummary();
+	_drawLegend(transactionSummary){
+	//	d3.select("#pie-chart");
+	}
+	
+	_drawPieChart(transactionSummary){
 							
 	 	this.pieData = this.createDonut(transactionSummary);
 		 
@@ -183,16 +199,33 @@ class TransactionReport extends BaseComponent {
 	}
 	
 	_addResizeHandler(){
-		window.addEventListener("resize", ()=>{
-			var report =  document.getElementsByClassName("transaction-report")[0];
-			var resize = report.clientWidth < 500;
-			this.setState({
-				width :  report.clientWidth,
-				height : resize? report.clientWidth * 0.8 :this.state.height,
-				radius : resize? report.clientWidth * 0.3 : this.state.radius,
-				innerRadius: resize? report.clientWidth *.15 : this.state.innerRadius
-			});
+		window.addEventListener("resize", () => {
+		var report =  document.getElementsByClassName("transaction-report")[0];
+		if(report.clientWidth < 500)
+			this._setDimensions(report.clientWidth);
 		});
+	}
+	
+	getLegend(){
+		var legends = [];
+		_.forEach(this.getTranscationSummary(), (ts,index) => {
+				var color = this.getColor(ts.data,index); 
+				var style = {
+					"width" : "20px", 
+					"height" : "20px", 
+					"background-color" : color,
+					"margin" : "5px",
+					"display" : "inline-block",
+					"vertical-align" : "middle"
+				};
+				legends.push(
+					<span style={{"margin-right": "10px"}} key={ts.category}>
+						<div style={style}></div>
+						<span>{ts.category}</span>
+					</span>
+				);
+			});
+		return legends;
 	}
 	
 	render(){
@@ -200,6 +233,7 @@ class TransactionReport extends BaseComponent {
 			<div className="transaction-report">
 				<div id="pie-chart">
 				</div>
+				<div style={{"textAlign":"center"}}>{this.getLegend()}</div>
 			</div>
 		);
 	}
