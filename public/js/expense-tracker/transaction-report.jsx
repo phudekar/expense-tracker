@@ -50,20 +50,25 @@ class TransactionReport extends BaseComponent {
 	
 	componentDidMount(){
 		this._addResizeHandler();
-		this._initializePie();	
-		this._drawPieChart();
+		this._draw();
 	}
 	
 	componentDidUpdate(){
-		this._drawPieChart();
+		this._draw();
 	}
 	
 	getColor(d, i){
 		return this.color(i);
 	}
 	
+	_draw(){
+		this._cleanUpChart();
+		this._initializePie();	
+		this._drawPieChart();
+	}
+	
 	_initializePie(){
-		var vis = d3.select("#pie-chart")
+		var vis =  d3.select("#pie-chart")
 					.append("svg:svg")
 					.attr("width", this.state.width)
 					.attr("height", this.state.height);
@@ -101,6 +106,11 @@ class TransactionReport extends BaseComponent {
 							.attr("dy", 21)
 							.attr("text-anchor", "middle")
 							.text("Rs");
+	}
+	
+	_cleanUpChart(){
+		var chartContainer = d3.select("#pie-chart");
+		chartContainer.select("svg").remove();
 	}
 	
 	_drawPieChart(){
@@ -174,9 +184,15 @@ class TransactionReport extends BaseComponent {
 	
 	_addResizeHandler(){
 		window.addEventListener("resize", ()=>{
-			this._initializePie();	
-			this._drawPieChart();
-		})
+			var report =  document.getElementsByClassName("transaction-report")[0];
+			var resize = report.clientWidth < 500;
+			this.setState({
+				width :  report.clientWidth,
+				height : resize? report.clientWidth * 0.8 :this.state.height,
+				radius : resize? report.clientWidth * 0.3 : this.state.radius,
+				innerRadius: resize? report.clientWidth *.15 : this.state.innerRadius
+			});
+		});
 	}
 	
 	render(){

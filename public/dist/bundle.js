@@ -26457,18 +26457,24 @@
 			key: "componentDidMount",
 			value: function componentDidMount() {
 				this._addResizeHandler();
-				this._initializePie();
-				this._drawPieChart();
+				this._draw();
 			}
 		}, {
 			key: "componentDidUpdate",
 			value: function componentDidUpdate() {
-				this._drawPieChart();
+				this._draw();
 			}
 		}, {
 			key: "getColor",
 			value: function getColor(d, i) {
 				return this.color(i);
+			}
+		}, {
+			key: "_draw",
+			value: function _draw() {
+				this._cleanUpChart();
+				this._initializePie();
+				this._drawPieChart();
 			}
 		}, {
 			key: "_initializePie",
@@ -26488,6 +26494,12 @@
 				this.totalValue = center_group.append("svg:text").attr("class", "total").attr("dy", 7).attr("text-anchor", "middle").text("Waiting...");
 	
 				var totalUnits = center_group.append("svg:text").attr("class", "units").attr("dy", 21).attr("text-anchor", "middle").text("Rs");
+			}
+		}, {
+			key: "_cleanUpChart",
+			value: function _cleanUpChart() {
+				var chartContainer = _d2.default.select("#pie-chart");
+				chartContainer.select("svg").remove();
 			}
 		}, {
 			key: "_drawPieChart",
@@ -26564,8 +26576,14 @@
 				var _this5 = this;
 	
 				window.addEventListener("resize", function () {
-					_this5._initializePie();
-					_this5._drawPieChart();
+					var report = document.getElementsByClassName("transaction-report")[0];
+					var resize = report.clientWidth < 500;
+					_this5.setState({
+						width: report.clientWidth,
+						height: resize ? report.clientWidth * 0.8 : _this5.state.height,
+						radius: resize ? report.clientWidth * 0.3 : _this5.state.radius,
+						innerRadius: resize ? report.clientWidth * .15 : _this5.state.innerRadius
+					});
 				});
 			}
 		}, {
