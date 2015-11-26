@@ -13,7 +13,7 @@ class TransactionInput extends BaseComponent {
 	
 	constructor(){
 		super();
-		this.expenseCategories = expenseCategories;
+		this.expenseCategories = expenseCategories.all;
 		this.state={
 			title: "",
 			category: "",
@@ -52,7 +52,7 @@ class TransactionInput extends BaseComponent {
 			title: this.state.title,
 			category: this.state.category.name,
 			amount: this.state.amount,
-			date: this.state.date
+			date: this.state.date.toLocaleDateString()
 		}
 		this.props.onAddTransaction(expense);
 	}

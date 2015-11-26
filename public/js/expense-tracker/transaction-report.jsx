@@ -5,12 +5,14 @@ import _ from "lodash"
 import BaseComponent from "../base-component.jsx"
 import transactionService from "./transaction-service.jsx"
 import AddTransactionButton from "./add-transaction-button.jsx"
+import expenseCategories from "./expense-categories.jsx"
 
 class TransactionReport extends BaseComponent {
 	
 	constructor(){
 		super();
 		this.transactionService = transactionService;
+		this.expenseCategories = expenseCategories;
 		this.state = {
 			timespan: "day",
 			tweenDuration: 250
@@ -18,11 +20,11 @@ class TransactionReport extends BaseComponent {
 		this._bind('_pieTween','_removePieTween','_arc','_setDimensions','getLegend');
 		this.pieData = [];    
 		this.oldPieData = [];
-		this.color = d3.scale.category20();
+		
 	}
 	
 	componentWillMount(){
-		var width  = this.props.width ? this.props.width : 500;
+		var width  = this.props.width ? this.props.width : 460;
 		this._setDimensions(width);
 	}
 	
@@ -60,7 +62,7 @@ class TransactionReport extends BaseComponent {
 	}
 	
 	getColor(d, i){
-		return this.color(i);
+		return this.expenseCategories.getCategoryColor(d.category);
 	}
 	
 	_setDimensions(width){
@@ -77,7 +79,6 @@ class TransactionReport extends BaseComponent {
 		this._cleanUpChart();
 		this._initializePie();	
 		this._drawPieChart(transactionSummary);
-		this._drawLegend(transactionSummary);
 	}
 	
 	_initializePie(){
@@ -126,10 +127,6 @@ class TransactionReport extends BaseComponent {
 		chartContainer.select("svg").remove();
 	}
 	
-	_drawLegend(transactionSummary){
-	//	d3.select("#pie-chart");
-	}
-	
 	_drawPieChart(transactionSummary){
 							
 	 	this.pieData = this.createDonut(transactionSummary);
@@ -143,7 +140,7 @@ class TransactionReport extends BaseComponent {
 			.append("svg:path")
 			.attr("stroke", "white")
 			.attr("stroke-width", 0.5)
-			.attr("fill", (d,i) => {return this.getColor(d,i);})
+			.attr("fill", (d,i) => {return this.getColor(d.data,i);})
 			.transition()
 				.duration(this.state.tweenDuration)
 				.attrTween("d", this._pieTween);
@@ -208,21 +205,28 @@ class TransactionReport extends BaseComponent {
 	
 	getLegend(){
 		var legends = [];
-		_.forEach(this.getTranscationSummary(), (ts,index) => {
-				var color = this.getColor(ts.data,index); 
+		var transactionSummary = this.getTranscationSummary();
+		var total = this.getTotalAmount(transactionSummary);
+		_.forEach(transactionSummary, (ts,index) => {
+				var color = this.getColor(ts,index); 
 				var style = {
-					"width" : "20px", 
-					"height" : "20px", 
-					"background-color" : color,
+					"width" : "30px", 
+					"height" : "30px", 
+					"backgroundColor" : color,
+					"borderRadius": "15px",
 					"margin" : "5px",
 					"display" : "inline-block",
-					"vertical-align" : "middle"
+					"verticalAlign" : "middle"
 				};
 				legends.push(
-					<span style={{"margin-right": "10px"}} key={ts.category}>
-						<div style={style}></div>
+					<div style={{"marginRight": "10px", "display":"inline-block"}} key={ts.category}>
+						<div style={style}>
+							<div style={{"fontSize" : "12px", "color": "white", "marginTop" : "8px","textShadow": "0 1px 1px #4d4d4d"}}>
+								{Math.round(ts.amount*100/total) + "%"}
+							</div>
+						</div>
 						<span>{ts.category}</span>
-					</span>
+					</div>
 				);
 			});
 		return legends;

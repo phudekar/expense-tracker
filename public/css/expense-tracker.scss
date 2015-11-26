@@ -21,6 +21,8 @@
 
 .transaction-list{
 	height: $height - 12vh;
+	overflow-y: scroll;
+	
 	.transaction-amount{
 		float: right;
 		text-align: right;
