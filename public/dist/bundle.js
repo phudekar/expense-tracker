@@ -38647,7 +38647,7 @@
 				"electronics": {
 					icon: "radio"
 				},
-				"apperals": {
+				"apparels": {
 					icon: "local_offer"
 				},
 				"grocery": {
@@ -38680,8 +38680,7 @@
 					return _expenseCategories2.default.getCategoryColor(category);
 				};
 	
-				return _react2.default.createElement(_avatar2.default, { icon: getIcon(this.props.category), style: { position: "absolute", top: "16px", left: "16px" },
-					backgroundColor: getBackground(this.props.category) });
+				return _react2.default.createElement(_avatar2.default, { className: 'category-avatar', icon: getIcon(this.props.category.toLowerCase()), backgroundColor: getBackground(this.props.category) });
 			}
 		}]);
 	
@@ -38711,7 +38710,7 @@
 			_classCallCheck(this, ExpenseCategories);
 	
 			var color = _d2.default.scale.category20();
-			this._all = [{ id: 0, name: "Food" }, { id: 1, name: "Apperals" }, { id: 2, name: "Healthcare" }, { id: 3, name: "Entertainment" }, { id: 4, name: "Education" }, { id: 5, name: "Electronics" }, { id: 6, name: "Travel" }, { id: 7, name: "Grocery" }];
+			this._all = [{ id: 0, name: "Food" }, { id: 1, name: "Apparels" }, { id: 2, name: "Healthcare" }, { id: 3, name: "Entertainment" }, { id: 4, name: "Education" }, { id: 5, name: "Electronics" }, { id: 6, name: "Travel" }, { id: 7, name: "Grocery" }];
 	
 			for (var index in this._all) {
 				this._all[index].color = color(index);
@@ -48307,7 +48306,7 @@
 		function TransactionService() {
 			_classCallCheck(this, TransactionService);
 	
-			this._transactions = [{ title: 'Dinner', category: 'Food', date: '11/10/2015', amount: 650 }, { title: 'Shopping at Lifestyle', category: 'Apperals', date: '11/20/2015', amount: 650 }, { title: 'Movie', category: 'Entertainment', date: '11/14/2015', amount: 450 }, { title: 'Electronics', category: 'Electronics', date: '11/20/2015', amount: 2780 }, { title: 'Safari online subscription', category: 'Education', date: '11/02/2015', amount: 1250 }];
+			this._transactions = [{ title: 'Dinner', category: 'Food', date: '11/10/2015', amount: 650 }, { title: 'Shopping at Lifestyle', category: 'Apparels', date: '11/20/2015', amount: 650 }, { title: 'Movie', category: 'Entertainment', date: '11/14/2015', amount: 450 }, { title: 'Electronics', category: 'Electronics', date: '11/20/2015', amount: 2780 }, { title: 'Safari online subscription', category: 'Education', date: '11/02/2015', amount: 1250 }];
 		}
 	
 		_createClass(TransactionService, [{
@@ -48362,6 +48361,10 @@
 	var _expenseCategories = __webpack_require__(230);
 	
 	var _expenseCategories2 = _interopRequireDefault(_expenseCategories);
+	
+	var _categoryAvatar = __webpack_require__(229);
+	
+	var _categoryAvatar2 = _interopRequireDefault(_categoryAvatar);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -48596,7 +48599,7 @@
 						),
 						_react2.default.createElement(
 							"span",
-							null,
+							{ style: { "marginTop": "-8px" } },
 							ts.category
 						)
 					));
@@ -56617,7 +56620,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".slide {\n  background: lightgray;\n  border: solid 2px gray; }\n  .slide .header {\n    background: darkolivegreen;\n    color: white; }\n    .slide .header .title {\n      font-size: 20px;\n      display: inline-block;\n      background: black;\n      padding: 20px; }\n  .slide .body {\n    background: white;\n    padding: 10px;\n    min-height: 550px; }\n\n.transaction-report #pie-chart {\n  background-color: #ffffff;\n  font: 10px sans-serif;\n  text-shadow: none; }\n  .transaction-report #pie-chart .total {\n    font-size: 18px;\n    font-weight: bold; }\n  .transaction-report #pie-chart .units {\n    fill: gray;\n    font-size: 12px; }\n  .transaction-report #pie-chart .label {\n    fill: #CCC;\n    font-size: 12px;\n    font-weight: bold; }\n  .transaction-report #pie-chart .value {\n    font-size: 12px;\n    font-weight: bold; }\n\n.tabs {\n  min-height: 95vh; }\n  .tabs .tab-content {\n    padding: 20px;\n    overflow-y: scroll; }\n  .tabs .cancel-button {\n    margin-left: 20px; }\n\n.add-button {\n  font-size: 24px;\n  color: white; }\n\n.transaction-list {\n  height: 83vh;\n  overflow-y: scroll; }\n  .transaction-list .transaction-amount {\n    float: right;\n    text-align: right; }\n\n#content {\n  width: 100%;\n  max-width: 500px;\n  margin: auto; }\n\nbody {\n  font-family: sans-serif; }\n", "", {"version":3,"sources":["/./public/css/slide.scss","/./public/css/transaction-report.scss","/./public/css/expense-tracker.scss","/./public/css/main.scss"],"names":[],"mappings":"AAAA;EACC,sBAAsB;EACtB,uBAAuB,EAmBvB;EArBD;IAKE,2BAA2B;IAC3B,aAAa,EAQb;IAdF;MASG,gBAAgB;MAChB,sBAAsB;MACnB,kBAAkB;MACrB,cAAc,EACd;EAbH;IAiBE,kBAAkB;IAClB,cAAc;IACd,kBAAkB,EAClB;;ACpBF;EAGE,0BAA0B;EAC1B,sBAAsB;EACtB,kBAAkB,EAsBlB;EA3BF;IAQG,gBAAgB;IAChB,kBAAkB,EAClB;EAVH;IAaG,WAAW;IACX,gBAAgB,EAChB;EAfH;IAkBG,WAAW;IACX,gBAAgB;IAChB,kBAAkB,EAClB;EArBH;IAwBG,gBAAgB;IAChB,kBAAkB,EAClB;;ACxBH;EAEC,iBCJY,EDcZ;EAZD;IAKE,cAAc;IACd,mBAAmB,EACnB;EAPF;IAUG,kBAAkB,EACnB;;AAGF;EACC,gBAAgB;EAChB,aAAa,EACb;;AAED;EACC,aAAe;EACf,mBAAmB,EAMnB;EARD;IAKE,aAAa;IACb,kBAAkB,EAClB;;ACvBF;EACC,YAAY;EACZ,iBAAiB;EACjB,aAAa,EACb;;AAED;EACC,wBAAwB,EACxB","file":"main.scss","sourcesContent":[".slide{\n\tbackground: lightgray;\n\tborder: solid 2px gray;\n\t\n\t.header{\n\t\tbackground: darkolivegreen;\n\t\tcolor: white;\n\t\t\n\t\t.title{\n\t\t\tfont-size: 20px;\n\t\t\tdisplay: inline-block;\n    \t\tbackground: black;\n\t\t\tpadding: 20px;\n\t\t}\n\t}\n\t\n\t.body{\n\t\tbackground: white;\n\t\tpadding: 10px;\n\t\tmin-height: 550px;\n\t}\n}",".transaction-report {\n\n\t#pie-chart {\n\t\tbackground-color: #ffffff;\n\t\tfont: 10px sans-serif;\n\t\ttext-shadow: none;\n\t\n\t\t.total{\n\t\t\tfont-size: 18px;\n\t\t\tfont-weight: bold;\n\t\t}\n\t\t\n\t\t.units{\n\t\t\tfill: gray;\n\t\t\tfont-size: 12px;\n\t\t}\n\t\t\n\t\t.label{\n\t\t\tfill: #CCC;\n\t\t\tfont-size: 12px;\n\t\t\tfont-weight: bold;\n\t\t}\n\t\t\n\t\t.value{\n\t\t\tfont-size: 12px;\n\t\t\tfont-weight: bold;\n\t\t}\n\t}\n}","@import \"transaction-report\";\n\n.tabs{\n\t\n\tmin-height: $height;\n\t\n\t.tab-content{\n\t\tpadding: 20px;\n\t\toverflow-y: scroll;\n\t}\n\t\n\t.cancel-button{\n\t\t margin-left: 20px;\n\t}\n} \n\n.add-button{\n\tfont-size: 24px;\n\tcolor: white;\n}\n\n.transaction-list{\n\theight: $height - 12vh;\n\toverflow-y: scroll;\n\t\n\t.transaction-amount{\n\t\tfloat: right;\n\t\ttext-align: right;\n\t}\n}","$height: 95vh;\n\n@import \"slide\";\n@import \"expense-tracker\";\n\n#content{\n\twidth: 100%;\n\tmax-width: 500px;\n\tmargin: auto;\n}\n\nbody{\n\tfont-family: sans-serif;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".slide {\n  background: lightgray;\n  border: solid 2px gray; }\n  .slide .header {\n    background: darkolivegreen;\n    color: white; }\n    .slide .header .title {\n      font-size: 20px;\n      display: inline-block;\n      background: black;\n      padding: 20px; }\n  .slide .body {\n    background: white;\n    padding: 10px;\n    min-height: 550px; }\n\n.transaction-report #pie-chart {\n  background-color: #ffffff;\n  font: 10px sans-serif;\n  text-shadow: none; }\n  .transaction-report #pie-chart .total {\n    font-size: 18px;\n    font-weight: bold; }\n  .transaction-report #pie-chart .units {\n    fill: gray;\n    font-size: 12px; }\n  .transaction-report #pie-chart .label {\n    fill: #CCC;\n    font-size: 12px;\n    font-weight: bold; }\n  .transaction-report #pie-chart .value {\n    font-size: 12px;\n    font-weight: bold; }\n\n.tabs {\n  min-height: 95vh; }\n  .tabs .tab-content {\n    padding: 20px;\n    overflow-y: scroll; }\n  .tabs .cancel-button {\n    margin-left: 20px; }\n\n.add-button {\n  font-size: 24px;\n  color: white; }\n\n.transaction-list {\n  height: 83vh;\n  overflow-y: scroll; }\n  .transaction-list .category-avatar {\n    position: absolute;\n    top: 16px;\n    left: 16px; }\n  .transaction-list .transaction-amount {\n    float: right;\n    text-align: right; }\n\n#content {\n  width: 100%;\n  max-width: 500px;\n  margin: auto; }\n\nbody {\n  font-family: sans-serif; }\n", "", {"version":3,"sources":["/./public/css/slide.scss","/./public/css/transaction-report.scss","/./public/css/expense-tracker.scss","/./public/css/main.scss"],"names":[],"mappings":"AAAA;EACC,sBAAsB;EACtB,uBAAuB,EAmBvB;EArBD;IAKE,2BAA2B;IAC3B,aAAa,EAQb;IAdF;MASG,gBAAgB;MAChB,sBAAsB;MACnB,kBAAkB;MACrB,cAAc,EACd;EAbH;IAiBE,kBAAkB;IAClB,cAAc;IACd,kBAAkB,EAClB;;ACpBF;EAGE,0BAA0B;EAC1B,sBAAsB;EACtB,kBAAkB,EAsBlB;EA3BF;IAQG,gBAAgB;IAChB,kBAAkB,EAClB;EAVH;IAaG,WAAW;IACX,gBAAgB,EAChB;EAfH;IAkBG,WAAW;IACX,gBAAgB;IAChB,kBAAkB,EAClB;EArBH;IAwBG,gBAAgB;IAChB,kBAAkB,EAClB;;ACxBH;EAEC,iBCJY,EDcZ;EAZD;IAKE,cAAc;IACd,mBAAmB,EACnB;EAPF;IAUG,kBAAkB,EACnB;;AAGF;EACC,gBAAgB;EAChB,aAAa,EACb;;AAED;EACC,aAAe;EACf,mBAAmB,EAYnB;EAdD;IAKE,mBAAmB;IACnB,UAAU;IACV,WAAW,EACX;EARF;IAWE,aAAa;IACb,kBAAkB,EAClB;;AC7BF;EACC,YAAY;EACZ,iBAAiB;EACjB,aAAa,EACb;;AAED;EACC,wBAAwB,EACxB","file":"main.scss","sourcesContent":[".slide{\n\tbackground: lightgray;\n\tborder: solid 2px gray;\n\t\n\t.header{\n\t\tbackground: darkolivegreen;\n\t\tcolor: white;\n\t\t\n\t\t.title{\n\t\t\tfont-size: 20px;\n\t\t\tdisplay: inline-block;\n    \t\tbackground: black;\n\t\t\tpadding: 20px;\n\t\t}\n\t}\n\t\n\t.body{\n\t\tbackground: white;\n\t\tpadding: 10px;\n\t\tmin-height: 550px;\n\t}\n}",".transaction-report {\n\n\t#pie-chart {\n\t\tbackground-color: #ffffff;\n\t\tfont: 10px sans-serif;\n\t\ttext-shadow: none;\n\t\n\t\t.total{\n\t\t\tfont-size: 18px;\n\t\t\tfont-weight: bold;\n\t\t}\n\t\t\n\t\t.units{\n\t\t\tfill: gray;\n\t\t\tfont-size: 12px;\n\t\t}\n\t\t\n\t\t.label{\n\t\t\tfill: #CCC;\n\t\t\tfont-size: 12px;\n\t\t\tfont-weight: bold;\n\t\t}\n\t\t\n\t\t.value{\n\t\t\tfont-size: 12px;\n\t\t\tfont-weight: bold;\n\t\t}\n\t}\n}","@import \"transaction-report\";\n\n.tabs{\n\t\n\tmin-height: $height;\n\t\n\t.tab-content{\n\t\tpadding: 20px;\n\t\toverflow-y: scroll;\n\t}\n\t\n\t.cancel-button{\n\t\t margin-left: 20px;\n\t}\n} \n\n.add-button{\n\tfont-size: 24px;\n\tcolor: white;\n}\n\n.transaction-list{\n\theight: $height - 12vh;\n\toverflow-y: scroll;\n\t\n\t.category-avatar {\n\t\tposition: absolute;\n\t\ttop: 16px;\n\t\tleft: 16px;\n\t}\n\t\n\t.transaction-amount{\n\t\tfloat: right;\n\t\ttext-align: right;\n\t}\n}","$height: 95vh;\n\n@import \"slide\";\n@import \"expense-tracker\";\n\n#content{\n\twidth: 100%;\n\tmax-width: 500px;\n\tmargin: auto;\n}\n\nbody{\n\tfont-family: sans-serif;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 

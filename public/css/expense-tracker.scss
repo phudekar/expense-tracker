@@ -23,6 +23,12 @@
 	height: $height - 12vh;
 	overflow-y: scroll;
 	
+	.category-avatar {
+		position: absolute;
+		top: 16px;
+		left: 16px;
+	}
+	
 	.transaction-amount{
 		float: right;
 		text-align: right;

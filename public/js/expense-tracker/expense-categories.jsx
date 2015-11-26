@@ -6,7 +6,7 @@ class ExpenseCategories {
 		var color = d3.scale.category20();
 		this._all = [
 				{id:0, name:"Food"},
-				{id:1, name:"Apperals"}, 
+				{id:1, name:"Apparels"}, 
 				{id:2, name:"Healthcare"},
 				{id:3, name:"Entertainment"},
 				{id:4, name:"Education"},

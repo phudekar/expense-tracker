@@ -6,6 +6,7 @@ import BaseComponent from "../base-component.jsx"
 import transactionService from "./transaction-service.jsx"
 import AddTransactionButton from "./add-transaction-button.jsx"
 import expenseCategories from "./expense-categories.jsx"
+import CategoryAvatar from "./category-avatar.jsx"
 
 class TransactionReport extends BaseComponent {
 	
@@ -221,11 +222,11 @@ class TransactionReport extends BaseComponent {
 				legends.push(
 					<div style={{"marginRight": "10px", "display":"inline-block"}} key={ts.category}>
 						<div style={style}>
-							<div style={{"fontSize" : "12px", "color": "white", "marginTop" : "8px","textShadow": "0 1px 1px #4d4d4d"}}>
+							<div style={{"fontSize" : "12px", "color": "white","marginTop" : "8px","textShadow": "0 1px 1px #4d4d4d"}}>
 								{Math.round(ts.amount*100/total) + "%"}
 							</div>
 						</div>
-						<span>{ts.category}</span>
+						<span style={{"marginTop" : "-8px"}}>{ts.category}</span>
 					</div>
 				);
 			});

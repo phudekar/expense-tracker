@@ -28,7 +28,7 @@ class CategoryAvatar extends BaseComponent {
 			"electronics" : {
 					icon: "radio",
 				},
-			"apperals" : {
+			"apparels" : {
 					icon: "local_offer",
 				},
 			"grocery" : {
@@ -52,8 +52,7 @@ class CategoryAvatar extends BaseComponent {
 		}
 		
 		return (
-			<Avatar icon={getIcon(this.props.category)} style={{position: "absolute", top: "16px", left: "16px"}}
-					backgroundColor={getBackground(this.props.category)}/>
+			<Avatar className="category-avatar" icon={getIcon(this.props.category.toLowerCase())} backgroundColor={getBackground(this.props.category)}/>
 		)
 	}
 }
