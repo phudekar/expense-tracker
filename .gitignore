@@ -2,5 +2,5 @@ lib
 node_modules
 npm-debug.log
 *.log
-
+dist
 .DS_Store

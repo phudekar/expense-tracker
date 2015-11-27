@@ -226,7 +226,7 @@ class TransactionReport extends BaseComponent {
 								{Math.round(ts.amount*100/total) + "%"}
 							</div>
 						</div>
-						<span style={{"marginTop" : "-8px"}}>{ts.category}</span>
+						<span style={{"marginTop" : "-8px", "marginLeft" : "5px"}}>{ts.category}</span>
 					</div>
 				);
 			});
